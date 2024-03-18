@@ -112,6 +112,12 @@ __throws void CrashDebugCommandLine_Init(CrashDebugCommandLine* pThis, int volat
         parseArguments(pThis, argc, argv, FIRST_PASS);
         throwIfRequiredArgumentNotSpecified(pThis);
         pThis->pMemory = MemorySim_Init();
+
+        // Create a memory region for FPCCR and FPCAR FPU registers
+        // gdb needs these to exist, otherwise it's complaining when switching freertos threads
+        // This is likely not a proper solution - to fix this properly, the registers should perhaps be stored in the dump file?
+        MemorySim_CreateRegion(pThis->pMemory, 0xe000ef34, 8);
+
         loadImageFile(pThis);
         loadDumpFile(pThis);
         parseArguments(pThis, argc, argv, SECOND_PASS);
