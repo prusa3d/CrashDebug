@@ -1,6 +1,6 @@
 [submodule "mri"]
 	path = mri
-	url = ../mri.git
+	url = https://github.com/adamgreen/mri.git
 [submodule "CrashCatcher"]
 	path = CrashCatcher
-	url = ../CrashCatcher.git
+	url = https://github.com/adamgreen/CrashCatcher.git
