@@ -609,8 +609,10 @@ static void* getDataPointer(MemorySim* pThis, uint32_t address, uint32_t size, A
 {
     MemoryRegion* pRegion = findMatchingRegion(pThis, &address, size);
     uint32_t regionOffset = address - pRegion->baseAddress;
+    /* Do not check - in our dumps, we're storing parts of the flash as well. In that case, we probably let it be overwritten.
     if (type == WRITING && pRegion->isReadOnly)
         __throw(busErrorException);
+        */
     if (type == READING && size == sizeof(uint16_t) && pRegion->pReadCounts)
         pRegion->pReadCounts[regionOffset / sizeof(uint16_t)]++;
     if (checkWatchpoints)
